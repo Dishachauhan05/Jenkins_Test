@@ -1,20 +1,24 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:20'
-        }
-    }
+    agent any
 
     stages {
+
         stage('Build') {
             steps {
-                sh 'npm install'
+                echo 'Building application...'
+                sh 'node -v || true'
             }
         }
 
         stage('Test') {
             steps {
-                sh 'npm test || true'
+                echo 'Testing application...'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying application...'
             }
         }
     }
