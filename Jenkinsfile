@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node:20'
+        }
+    }
 
     stages {
         stage('Build') {
@@ -10,14 +14,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                echo 'No tests configured'
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                sh 'docker build -t node-express-demo .'
-                sh 'docker run -d -p 3000:3000 --name node-express-demo node-express-demo || true'
+                sh 'npm test || true'
             }
         }
     }
